@@ -1,0 +1,113 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Configuration.Assemblies;
+using NAudio;
+using NAudio.Wave;
+using NAudio.CoreAudioApi;
+using System.IO;
+using NAudio.CoreAudioApi.Interfaces;
+using NAudio.Midi;
+using NAudio.SoundFont;
+using NAudio.Utils;
+using NAudio.Codecs;
+using NAudio.Dmo;
+using NAudio.Dsp;
+using NAudio.FileFormats;
+using NAudio.Gui;
+using NAudio.FileFormats.Map;
+using NAudio.FileFormats.Mp3;
+using NAudio.MediaFoundation;
+using NAudio.Mixer;
+using System.Threading;
+using System.Windows.Forms.DataVisualization.Charting;
+
+
+
+namespace medidor
+{
+    public partial class Form2 : Form
+    {
+        public Form2()
+        {
+            InitializeComponent();
+        }
+
+        WaveFileWriter writer;
+        WaveIn wI;
+        WaveOut wO;
+        RawSourceWaveStream waveStream;
+        WaveFileReader reader;
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+        void OnDataAvailable(object sender, WaveInEventArgs e)
+        {
+            writer.Write(e.Buffer, 0, e.BytesRecorded);
+            writer.Flush();
+        }
+
+        private void Play_Click(object sender, EventArgs e)
+        {
+            timer1.Start();
+            wO = new WaveOut();
+            reader = new WaveFileReader(@"C:\tempAudio.wav");
+            WaveFormat waveFormat = new WaveFormat(44100, 2);
+            waveStream = new RawSourceWaveStream(reader, waveFormat);
+            wO.DeviceNumber = AudioController.getInstance().GetDefaultOutputDeviceNumber();
+            wO.Init(waveStream);
+            wO.Volume = 1;
+            wO.Play();
+
+        }
+        private void Record_Click(object sender, EventArgs e)
+        {
+            wI = new WaveIn();
+            wI.DeviceNumber = AudioController.getInstance().GetDefaultInputDeviceNumber();
+            wI.WaveFormat = new WaveFormat(44100, 2);
+            wI.DataAvailable += OnDataAvailable;
+            writer = new WaveFileWriter(@"C:\tempAudio.wav", wI.WaveFormat);
+            wI.StartRecording();
+
+        }
+
+        private void Stop_Click(object sender, EventArgs e)
+        {
+            wI.StopRecording();
+            wI.Dispose();
+            writer.Dispose();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            System.Threading.Thread.Sleep(250);
+            TimeSpan time = new TimeSpan(0, 0, 1);
+            int bytesPerMillisecond = reader.WaveFormat.AverageBytesPerSecond / 1000;
+            //byte[] buffer = new byte[reader.Length];
+            //int read = reader.Read(buffer, 0, (int)reader.Length);
+            int bytesPerSecond = (int)time.TotalMilliseconds * bytesPerMillisecond;
+            byte[] oneSecondBuffer = new byte[bytesPerSecond];
+            int read = reader.Read(oneSecondBuffer, 0, bytesPerSecond);
+
+            long sample16Bit = BitConverter.ToInt16(oneSecondBuffer, 1);
+            double volume = Math.Abs(sample16Bit / 32768.0);
+            double decibels = 20 * Math.Log10(volume);
+            label1.Text = decibels.ToString();
+            label1.Refresh();
+
+        }
+
+        private void Pause_Click(object sender, EventArgs e)
+        {
+            wO.Pause();
+            wO.Dispose();
+        }
+    }
+}
