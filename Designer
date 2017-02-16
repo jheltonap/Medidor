@@ -1,0 +1,125 @@
+namespace medidor
+{
+    partial class Form2
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.Record = new System.Windows.Forms.Button();
+            this.Play = new System.Windows.Forms.Button();
+            this.Stop = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.Pause = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // Record
+            // 
+            this.Record.Location = new System.Drawing.Point(151, 12);
+            this.Record.Name = "Record";
+            this.Record.Size = new System.Drawing.Size(66, 23);
+            this.Record.TabIndex = 0;
+            this.Record.Text = "Record";
+            this.Record.UseVisualStyleBackColor = true;
+            this.Record.Click += new System.EventHandler(this.Record_Click);
+            // 
+            // Play
+            // 
+            this.Play.Location = new System.Drawing.Point(12, 12);
+            this.Play.Name = "Play";
+            this.Play.Size = new System.Drawing.Size(63, 23);
+            this.Play.TabIndex = 1;
+            this.Play.Text = "Play";
+            this.Play.UseVisualStyleBackColor = true;
+            this.Play.Click += new System.EventHandler(this.Play_Click);
+            // 
+            // Stop
+            // 
+            this.Stop.Location = new System.Drawing.Point(223, 12);
+            this.Stop.Name = "Stop";
+            this.Stop.Size = new System.Drawing.Size(60, 23);
+            this.Stop.TabIndex = 2;
+            this.Stop.Text = "Stop";
+            this.Stop.UseVisualStyleBackColor = true;
+            this.Stop.Click += new System.EventHandler(this.Stop_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(113, 68);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "label1";
+            // 
+            // Pause
+            // 
+            this.Pause.Location = new System.Drawing.Point(90, 12);
+            this.Pause.Name = "Pause";
+            this.Pause.Size = new System.Drawing.Size(55, 23);
+            this.Pause.TabIndex = 4;
+            this.Pause.Text = "Pause";
+            this.Pause.UseVisualStyleBackColor = true;
+            this.Pause.Click += new System.EventHandler(this.Pause_Click);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.Pause);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.Stop);
+            this.Controls.Add(this.Play);
+            this.Controls.Add(this.Record);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(300, 300);
+            this.MinimumSize = new System.Drawing.Size(300, 300);
+            this.Name = "Form1";
+            this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Button Record;
+        private System.Windows.Forms.Button Play;
+        private System.Windows.Forms.Button Stop;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button Pause;
+    }
+}
+
